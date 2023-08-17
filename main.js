@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const extractButton = document.querySelector(".extract-button");
 
    extractButton.addEventListener("click", function () {
-      const depthInput = document.getElementById("depthInput");
+      const depthInput = document.querySelector(".depth-input");
       const depth = parseInt(depthInput.value, 10);
 
       ExtractSlug(depth);
