@@ -1,8 +1,8 @@
 {
    "manifest_version": 2,
-   "name": "Your Extension Name",
+   "name": "Slug Extractor by Willy",
    "version": "1.0",
-   "description": "Description of your extension",
+   "description": "A simple chrome extension for effortless copying and pasting of slugs, particularly beneficial when dealing with Next.js pages that utilize SSR.",
    "icons": {
       "16": "images/icon16.png",
       "48": "images/icon48.png",
