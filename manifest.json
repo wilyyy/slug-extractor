@@ -22,8 +22,5 @@
          "matches": ["<all_urls>"],
          "js": ["content.js"]
       }
-   ],
-   "background": {
-      "persistent": false
-   }
+   ]
 }
