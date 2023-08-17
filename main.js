@@ -1,13 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
-   const extractButton = document.querySelector(".extract-button");
-
-   extractButton.addEventListener("click", function () {
+const ExtractSlug = (depth) => {
+   try {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
          const url = new URL(tabs[0].url);
-         const slug = url.pathname
-            .split("/")
-            .filter((part) => part !== "")
-            .pop();
+         const pathParts = url.pathname.split("/").filter((part) => part !== "");
+
+         const depthToConsider = Math.min(depth, pathParts.length);
+         const slug = pathParts.slice(-depthToConsider).join("/");
 
          if (slug) {
             navigator.clipboard
@@ -21,5 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
                });
          }
       });
+   } catch (error) {
+      console.error("Error:", error);
+   }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+   const extractButton = document.querySelector(".extract-button");
+
+   extractButton.addEventListener("click", function () {
+      const depthInput = document.getElementById("depthInput");
+      const depth = parseInt(depthInput.value, 10);
+
+      ExtractSlug(depth);
    });
 });
