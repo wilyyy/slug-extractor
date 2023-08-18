@@ -1,27 +1,44 @@
 // Helper function to extract slug from URL
-const extractSlugFromUrl = (url) => {
+const ExtractSlugFromUrl = (url) => {
    const pathParts = url.pathname.split("/").filter((part) => part !== "");
    return pathParts.join("/");
 };
 
 // Helper function to copy text to clipboard
-const copyToClipboard = (text) => {
+const CopyToClipboard = (text) => {
    return navigator.clipboard.writeText(text);
 };
 
 // Helper function to query active tab and execute action
-const queryActiveTabAndExecute = (action) => {
+const QueryActiveTabAndExecute = (action) => {
    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       action(tabs[0]);
    });
 };
 
+// Function to show current slug preview
+const ShowSlugPreview = (slug) => {
+   const slugPreview = document.querySelector(".slug-preview");
+   slugPreview.textContent = `${slug}`;
+};
+
+// Function to open local host with slug
+const RunLocalHostWithSlug = (host) => {
+   QueryActiveTabAndExecute((tab) => {
+      const slug = ExtractSlugFromUrl(new URL(tab.url));
+      const localPageUrl = slug
+         ? `http://localhost:${host}/${slug}`
+         : `http://localhost:${host}/`;
+      chrome.tabs.create({ url: localPageUrl });
+   });
+};
+
 // Function to copy the whole slug
-const extractWholeSlug = () => {
-   queryActiveTabAndExecute((tab) => {
-      const slug = extractSlugFromUrl(new URL(tab.url));
+const ExtractWholeSlug = () => {
+   QueryActiveTabAndExecute((tab) => {
+      const slug = ExtractSlugFromUrl(new URL(tab.url));
       if (slug) {
-         copyToClipboard(slug)
+         CopyToClipboard(slug)
             .then(() => {
                console.log("Whole slug copied to clipboard:", slug);
             })
@@ -32,20 +49,9 @@ const extractWholeSlug = () => {
    });
 };
 
-// Function to open local host with slug
-const runLocalHostWithSlug = (host) => {
-   queryActiveTabAndExecute((tab) => {
-      const slug = extractSlugFromUrl(new URL(tab.url));
-      if (slug) {
-         const localPageUrl = `http://localhost:${host}/${slug}`;
-         chrome.tabs.create({ url: localPageUrl });
-      }
-   });
-};
-
 // Function to extract slug with depth
-const extractSlugWithDepth = (depth) => {
-   queryActiveTabAndExecute((tab) => {
+const ExtractSlugWithDepth = (depth) => {
+   QueryActiveTabAndExecute((tab) => {
       const url = new URL(tab.url);
       const pathParts = url.pathname.split("/").filter((part) => part !== "");
 
@@ -53,7 +59,7 @@ const extractSlugWithDepth = (depth) => {
       const slug = pathParts.slice(-depthToConsider).join("/");
 
       if (slug) {
-         copyToClipboard(slug)
+         CopyToClipboard(slug)
             .then(() => {
                console.log("Slug copied to clipboard:", slug);
                window.close();
@@ -71,17 +77,22 @@ document.addEventListener("DOMContentLoaded", function () {
    const runLocalHostButton = document.querySelector(".run-local-host");
    const extractWithDepthButton = document.querySelector(".extract-slug-with-depth");
 
-   extractWholeSlugButton.addEventListener("click", extractWholeSlug);
+   QueryActiveTabAndExecute((tab) => {
+      const slug = ExtractSlugFromUrl(new URL(tab.url));
+      ShowSlugPreview(slug);
+   });
 
    runLocalHostButton.addEventListener("click", function () {
       const hostInput = document.querySelector(".host-input");
       const host = hostInput.value;
-      runLocalHostWithSlug(host);
+      RunLocalHostWithSlug(host);
    });
+
+   extractWholeSlugButton.addEventListener("click", ExtractWholeSlug);
 
    extractWithDepthButton.addEventListener("click", function () {
       const depthInput = document.querySelector(".depth-input");
       const depth = parseInt(depthInput.value, 10);
-      extractSlugWithDepth(depth);
+      ExtractSlugWithDepth(depth);
    });
 });
