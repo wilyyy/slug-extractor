@@ -9,15 +9,29 @@
    </head>
    <body>
       <div class="container">
-         <label for="depth-input">
-            <p>How deep in the slug breadcrumb do we want to copy?</p>
-            <p>
-               i.e: website.com/en-us/page-1234 -> depth of 1 will copy paste
-               'en-us/page-1234', depth of 2 will copy paste page-1234
-            </p>
-         </label>
-         <input type="number" class="depth-input" value="1" />
-         <button class="extract-button">Extract Slug</button>
+         <div class="section">
+            <h3>Copy Whole Slug</h3>
+            <button class="extract-whole-slug">Extract Slug</button>
+         </div>
+         <div class="section">
+            <h3>Run Local Host with Slug</h3>
+            <label for="depth-input"> Host: </label>
+            <input type="number" class="depth-input" value="3000" />
+            <button class="run-local-host">Run LocalHost with SLug Slug</button>
+         </div>
+         <div class="section">
+            <h3>Copy Slug with depth</h3>
+            <label for="depth-input">
+               <p>How deep in the slug breadcrumb do we want to copy?</p>
+               <p>
+                  i.e: website.com/en-us/page-1234 -> depth of 1 will copy paste
+                  'en-us/page-1234', depth of 2 will copy paste page-1234
+               </p>
+            </label>
+            <input type="number" class="depth-input" value="1" />
+            <button class="extract-slug-with-depth">Extract Slug</button>
+         </div>
+         <hr />
       </div>
    </body>
 </html>
