@@ -22,6 +22,15 @@ const ShowSlugPreview = (slug) => {
    slugPreview.textContent = `${slug}`;
 };
 
+// Function to show success message state
+const ShowSuccessMessage = (message, moduleClass) => {
+   const successMessage = document.querySelector(`.${moduleClass}-success`);
+   successMessage.textContent = message;
+   setTimeout(() => {
+      successMessage.textContent = "";
+   }, 7000);
+};
+
 // Function to open local host with slug
 const RunLocalHostWithSlug = (host) => {
    QueryActiveTabAndExecute((tab) => {
@@ -41,6 +50,7 @@ const ExtractWholeSlug = () => {
          CopyToClipboard(slug)
             .then(() => {
                console.log("Whole slug copied to clipboard:", slug);
+               ShowSuccessMessage(`Copied: ${slug}`, "whole-slug");
             })
             .catch((error) => {
                console.error("Error copying whole slug:", error);
@@ -62,7 +72,7 @@ const ExtractSlugWithDepth = (depth) => {
          CopyToClipboard(slug)
             .then(() => {
                console.log("Slug copied to clipboard:", slug);
-               window.close();
+               ShowSuccessMessage(`Copied: ${slug}`, "depth-slug");
             })
             .catch((error) => {
                console.error("Error copying slug:", error);

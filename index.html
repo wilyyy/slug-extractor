@@ -10,16 +10,17 @@
    <body>
       <div class="container">
          <div class="header">
-            <h2>
+            <h3>
                URL Slug Extractor by
                <a href="https://github.com/wilyyy" target="_blank">Willy</a>
-            </h2>
+            </h3>
+            Current Slug:
+            <div class="slug-preview"></div>
             <hr />
          </div>
          <div class="section">
             <h3>Run Local Host with Slug</h3>
             <p>Opens a new tab with current slug</p>
-            <div class="slug-preview"></div>
             <label for="depth-input"> Host: </label>
             <input type="number" class="host-input" value="3000" />
             <button class="run-local-host">Run LocalHost with Slug</button>
@@ -27,6 +28,7 @@
          <div class="section">
             <h3>Copy Whole Slug</h3>
             <button class="extract-whole-slug">Extract Slug</button>
+            <div class="success-message whole-slug-success"></div>
          </div>
          <div class="section">
             <h3>Copy Slug with depth</h3>
@@ -39,6 +41,7 @@
             <label for="depth-input">Depth: </label>
             <input type="number" class="depth-input" value="1" />
             <button class="extract-slug-with-depth">Extract Slug</button>
+            <div class="success-message depth-slug-success"></div>
          </div>
       </div>
    </body>
