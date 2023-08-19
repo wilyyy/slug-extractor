@@ -50,7 +50,7 @@ const ExtractWholeSlug = () => {
          CopyToClipboard(slug)
             .then(() => {
                console.log("Whole slug copied to clipboard:", slug);
-               ShowSuccessMessage(`Copied: ${slug}`, "whole-slug");
+               ShowSuccessMessage(`Successfully copied: ${slug}`, "whole-slug");
             })
             .catch((error) => {
                console.error("Error copying whole slug:", error);
@@ -72,7 +72,7 @@ const ExtractSlugWithDepth = (depth) => {
          CopyToClipboard(slug)
             .then(() => {
                console.log("Slug copied to clipboard:", slug);
-               ShowSuccessMessage(`Copied: ${slug}`, "depth-slug");
+               ShowSuccessMessage(`Successfully copied: ${slug}`, "depth-slug");
             })
             .catch((error) => {
                console.error("Error copying slug:", error);

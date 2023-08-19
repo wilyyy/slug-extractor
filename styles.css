@@ -1,6 +1,6 @@
 .container {
    width: 350px;
-   padding: 5px;
+   padding: 0 5px;
 }
 
 h3 {
@@ -33,6 +33,5 @@ button {
 
 .success-message {
    color: #136500;
-   font-size: 16px;
    font-weight: 700;
 }
